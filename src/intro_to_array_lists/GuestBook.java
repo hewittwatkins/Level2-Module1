@@ -1,14 +1,22 @@
 package intro_to_array_lists;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GuestBook {
+public class GuestBook implements ActionListener {
+	
+	static JButton button1 = new JButton();
+	static JButton button2 = new JButton();
+	static ArrayList <String> names = new ArrayList <String>();
 	
 	public static void main(String[] args) {
 	// Create a GUI with two buttons. One button reads "Add Name" and the other button reads "View Names". 
@@ -24,25 +32,50 @@ public class GuestBook {
 		
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
-	JButton button1 = new JButton();
-	JTextField text = new JTextField(20);
-	JLabel label = new JLabel();
-	
+
 	frame.setVisible(true);
 	frame.setLocationRelativeTo(null);
 	frame.setSize(500,500);
-	label.setText("Hellooo");
+	button1.setText("Add Name");
+	button2.setText("View Names");
 	
 	panel.add(button1);
-	panel.add(text);
-	panel.add(label);
+	panel.add(button2);
 	panel.setBackground(Color.cyan);
 	
-	
 	// ActionLister --> learn what is next class from the teacher / ask them about it
-	
 	frame.add(panel);
-
+	
+	
+	GuestBook gb = new GuestBook();
+	gb.listen();
+	
+	
+	
 	}
+
+	public void listen() {
+		button1.addActionListener(this);
+		button2.addActionListener(this);
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == button1) {
+			String name = JOptionPane.showInputDialog("Please enter name: ");
+			names.add(name);
+		}
+		else if (e.getSource() == button2) {
+			String nameList = "";
+			for (int i = 0; i < names.size(); i++) {
+				nameList = nameList + "\n" + "Guest #" + (i+1) + ": " + names.get(i); 
+				
+			}
+			JOptionPane.showMessageDialog(null, nameList);
+		}
+		
+	}
+	
 }
 	
